@@ -11,19 +11,17 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, T : ViewBinding> :
     Fragment() {
 
     private lateinit var viewModel: VIEW_MODEL
+    private var _binding: T? = null
+    private val binding get() = _binding!!
 
-
-    private var viewBinding: T? = null
-    private val binding get() = viewBinding!!
-
-    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> T
+    abstract fun setViewBinding(): T
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = bindingInflater.invoke(inflater, container, false)
-        return requireNotNull(viewBinding).root
+        _binding = setViewBinding()
+        return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +45,7 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, T : ViewBinding> :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewBinding = null
+        _binding = null
     }
 
     fun getViewModel(): VIEW_MODEL {

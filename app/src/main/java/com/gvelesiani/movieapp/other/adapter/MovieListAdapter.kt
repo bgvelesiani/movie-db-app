@@ -56,7 +56,7 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.CEILING
 
-        holder.rating.text = if(movie.movieRating.toString().length > 3){
+        holder.rating.text = if (movie.movieRating.toString().length > 3) {
             df.format(movie.movieRating).toString()
         } else {
             movie.movieRating.toString()

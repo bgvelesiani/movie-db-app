@@ -2,28 +2,28 @@ package com.gvelesiani.movieapp.presentation.fragments.welcome
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.gvelesiani.movieapp.base.BaseFragment
-import com.gvelesiani.movieapp.databinding.FragmentWelcomeBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import android.text.style.ForegroundColorSpan
-
-import android.text.SpannableString
-
-import android.text.SpannableStringBuilder
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.gvelesiani.movieapp.R
+import com.gvelesiani.movieapp.base.BaseFragment
+import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
+import com.gvelesiani.movieapp.databinding.FragmentWelcomeBinding
 import com.gvelesiani.movieapp.other.extensions.getColorCompat
 import kotlinx.android.synthetic.main.fragment_welcome.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>() {
     private val viewModel: WelcomeViewModel by viewModel()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentWelcomeBinding
-        get() = FragmentWelcomeBinding::inflate
+    override fun setViewBinding(): FragmentWelcomeBinding {
+        return FragmentWelcomeBinding.inflate(layoutInflater)
+    }
 
     override fun provideViewModel(): WelcomeViewModel = viewModel
 
@@ -36,7 +36,7 @@ class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>()
         }
     }
 
-    private fun setUpWelcomeScreenAppNameText(){
+    private fun setUpWelcomeScreenAppNameText() {
         val builder = SpannableStringBuilder()
 
         val white = getString(R.string.app_name)
@@ -46,7 +46,12 @@ class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>()
 
         val red = "."
         val redSpannable = SpannableString(red)
-        redSpannable.setSpan(ForegroundColorSpan(requireContext().getColorCompat(R.color.welcome_screen_dot_color)), 0, red.length, 0)
+        redSpannable.setSpan(
+            ForegroundColorSpan(requireContext().getColorCompat(R.color.welcome_screen_dot_color)),
+            0,
+            red.length,
+            0
+        )
         builder.append(redSpannable)
 
         tvAppName.setText(builder, TextView.BufferType.SPANNABLE)

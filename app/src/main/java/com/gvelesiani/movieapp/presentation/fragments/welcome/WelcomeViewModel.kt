@@ -6,11 +6,12 @@ import com.gvelesiani.movieapp.domain.useCases.UpdateWelcomeScreenButtonStateUse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class WelcomeViewModel(private val updateWelcomeScreenButtonStateUseCase: UpdateWelcomeScreenButtonStateUseCase) : BaseViewModel() {
+class WelcomeViewModel(private val updateWelcomeScreenButtonStateUseCase: UpdateWelcomeScreenButtonStateUseCase) :
+    BaseViewModel() {
 
-    fun updateWelcomeScreenButtonStateUseCase(isClicked: Boolean){
+    fun updateWelcomeScreenButtonStateUseCase(isClicked: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            updateWelcomeScreenButtonStateUseCase.doWork(isClicked)
+            updateWelcomeScreenButtonStateUseCase.run(isClicked)
         }
     }
 }

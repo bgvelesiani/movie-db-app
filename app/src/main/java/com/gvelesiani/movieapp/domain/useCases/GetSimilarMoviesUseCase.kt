@@ -9,7 +9,7 @@ class GetSimilarMoviesUseCase(
     private val repository: Repository
 ) :
     BaseUseCase<Int, Response<MovieList>>() {
-    override suspend fun doWork(params: Int): Response<MovieList> {
+    override suspend fun run(params: Int): Response<MovieList> {
         return repository.getSimilarMovies(params)
     }
 }

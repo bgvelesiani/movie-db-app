@@ -2,8 +2,6 @@ package com.gvelesiani.movieapp.presentation.fragments.movieDetails
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -19,15 +17,15 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
 
     private val viewModel: MovieDetailsViewModel by viewModel()
 
-
     private val recyclerViewAdapter = MovieListAdapter {
         val action =
             MovieDetailsFragmentDirections.actionMovieDetailsFragmentSelf(it)
         findNavController().navigate(action)
     }
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieDetailsBinding
-        get() = FragmentMovieDetailsBinding::inflate
 
+    override fun setViewBinding(): FragmentMovieDetailsBinding {
+        return FragmentMovieDetailsBinding.inflate(layoutInflater)
+    }
 
     override fun setupView(binding: FragmentMovieDetailsBinding, savedInstanceState: Bundle?) {
         val movie = MovieDetailsFragmentArgs.fromBundle(requireArguments()).movie

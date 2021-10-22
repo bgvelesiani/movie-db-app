@@ -24,8 +24,9 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         findNavController().navigate(action)
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMoviesBinding
-        get() = FragmentMoviesBinding::inflate
+    override fun setViewBinding(): FragmentMoviesBinding {
+        return FragmentMoviesBinding.inflate(layoutInflater)
+    }
 
 
     override fun setupView(binding: FragmentMoviesBinding, savedInstanceState: Bundle?) {

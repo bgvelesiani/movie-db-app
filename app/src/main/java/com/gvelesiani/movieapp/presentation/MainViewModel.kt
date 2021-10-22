@@ -22,7 +22,7 @@ class MainViewModel(private val getWelcomeScreenButtonStateUseCase: GetWelcomeSc
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = getWelcomeScreenButtonStateUseCase.doWork(Unit)
+            val result = getWelcomeScreenButtonStateUseCase.run(Unit)
             withContext(Dispatchers.Main) {
                 _isClicked.value = result
             }

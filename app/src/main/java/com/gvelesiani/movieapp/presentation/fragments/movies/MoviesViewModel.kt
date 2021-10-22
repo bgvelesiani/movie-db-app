@@ -10,7 +10,6 @@ import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
     BaseViewModel() {
@@ -33,14 +32,14 @@ class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCa
 //        })
 //    }
 
-    fun getPopularMovies(id: Int){
+    fun getPopularMovies(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val movies = getPopularMoviesUseCase.doWork(id)
-                withContext(Dispatchers.Main){
+                val movies = getPopularMoviesUseCase.run(id)
+                withContext(Dispatchers.Main) {
                     _movies.value = movies.body()
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 d("onError", e.message.toString())
             }
         }

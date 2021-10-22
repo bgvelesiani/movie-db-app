@@ -8,5 +8,5 @@ interface Repository {
     suspend fun getSimilarMovies(movieId: Int): Response<MovieList>
 
     suspend fun getWelcomeScreenButtonState(): Boolean
-    suspend fun updateWelcomeScreenButtonState(isClicked: Boolean): Unit
+    suspend fun updateWelcomeScreenButtonState(isClicked: Boolean)
 }

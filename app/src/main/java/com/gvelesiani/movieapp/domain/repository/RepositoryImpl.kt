@@ -5,7 +5,10 @@ import com.gvelesiani.movieapp.domain.api.NetworkApi
 import com.gvelesiani.movieapp.domain.models.MovieList
 import retrofit2.Response
 
-class RepositoryImpl(private val networkApi: NetworkApi, private val sharedPreferences: SharedPreferences) : Repository {
+class RepositoryImpl(
+    private val networkApi: NetworkApi,
+    private val sharedPreferences: SharedPreferences
+) : Repository {
     override suspend fun getPopularMovies(page: Int): Response<MovieList> {
         return networkApi.getPopularMovies(page)
     }
