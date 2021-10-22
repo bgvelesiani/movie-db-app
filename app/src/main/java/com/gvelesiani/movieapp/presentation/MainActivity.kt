@@ -2,12 +2,17 @@ package com.gvelesiani.movieapp.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.base.BaseActivity
 import com.gvelesiani.movieapp.databinding.ActivityMainBinding
+import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
+import com.gvelesiani.movieapp.R
+
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
@@ -19,16 +24,25 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun setupView(binding: ActivityMainBinding, savedInstanceState: Bundle?) {
         supportActionBar?.hide()
+        setupObservers()
+        isNetworkAvailable()
+    }
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        val inflater = navHostFragment.navController.navInflater
-        val graph = inflater.inflate(R.navigation.home_graph)
+    private fun setupObservers(){
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.welcomeFragment, true)
+            .build()
 
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            graph.startDestination = R.id.moviesFragment
-            navController.graph = graph
+        viewModel.isClicked.observe(this, {
+            if(it){
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_welcomeFragment_to_moviesFragment, null, navOptions)
+            }
+        })
+    }
+
+    private fun isNetworkAvailable(){
+        if(!this.isNetworkAvailable){
+            Toast.makeText(this, "Please connect to a Network", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.core.content.ContextCompat
 
 inline fun <T : Any> T?.notNull(callback: (T) -> Unit): T? {
     return this?.also(callback)
@@ -30,3 +31,5 @@ val Context.isNetworkAvailable: Boolean
             }
         }
     }
+
+fun Context.getColorCompat(color: Int) = ContextCompat.getColor(this, color)

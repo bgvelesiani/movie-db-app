@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk compileSdkVersion
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.gvelesiani.movieapp"
-        minSdk minSdkVersion
-        targetSdk targetSdkVersion
+        minSdk 24
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -68,7 +68,6 @@ dependencies {
 
     implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-auth'
 
     implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
 

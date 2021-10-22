@@ -1,6 +1,7 @@
 package com.gvelesiani.movieapp.diModules
 
 
+import android.content.SharedPreferences
 import com.gvelesiani.movieapp.constants.BASE_URL
 import com.gvelesiani.movieapp.domain.api.NetworkApi
 import com.gvelesiani.movieapp.domain.interceptors.AuthInterceptor
@@ -16,7 +17,7 @@ val networkModule = module {
     factory { provideOkHttpClient(get()) }
     factory { provideNetworkApi(get()) }
     single { provideRetrofit(get()) }
-    single { createRepository(get()) }
+    single { createRepository(get(), get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -30,6 +31,6 @@ fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
 
 fun provideNetworkApi(retrofit: Retrofit): NetworkApi = retrofit.create(NetworkApi::class.java)
 
-fun createRepository(apiService: NetworkApi): Repository {
-    return RepositoryImpl(apiService)
+fun createRepository(apiService: NetworkApi, sharedPreferences: SharedPreferences): Repository {
+    return RepositoryImpl(apiService, sharedPreferences)
 }

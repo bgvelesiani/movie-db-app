@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.mvvm.extensions.loadFromUrl
+import com.gvelesiani.movieapp.other.extensions.loadFromUrl
 import com.makeramen.roundedimageview.RoundedImageView
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
     RecyclerView.Adapter<MovieListAdapter.MyItemViewHolder>() {
+
     private var movieList: List<Movie> = listOf()
 
     class MyItemViewHolder(itemView: View, clickAtPosition: (Int) -> Unit) :
@@ -25,7 +28,7 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
 
         init {
             itemView.setOnClickListener {
-                clickAtPosition(bindingAdapterPosition)
+                clickAtPosition(adapterPosition)
             }
         }
     }
@@ -48,7 +51,17 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
         holder.description.text = movie.movieDescription
         holder.releaseDate.text = movie.movieReleaseDate
         holder.poster.loadFromUrl("$BASE_IMAGE_URL${movie.imageUrl}")
-        holder.rating.text = movie.movieRating.toString()
+
+        //
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.CEILING
+
+        holder.rating.text = if(movie.movieRating.toString().length > 3){
+            df.format(movie.movieRating).toString()
+        } else {
+            movie.movieRating.toString()
+        }
+
     }
 
     override fun getItemCount(): Int = movieList.size
