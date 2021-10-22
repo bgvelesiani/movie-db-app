@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragments.signIn.SignInFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLetsSignIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Let's sign you in"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/btBack" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWelcomeBack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:minLines="2"
+        android:text="Welcome back. You have been missed!"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tvLetsSignIn" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/et_authentication_background"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/fragment_sign_in_email_field_hint"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcomeBack" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/et_authentication_background"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/fragment_sign_in_password_field_hint"
+        android:inputType="textPassword"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/etEmail" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContinueAsAGuest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:gravity="center"
+        android:text="Continue as a guest"
+        android:textColor="#C31C1720"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/tvDontHaveAccount"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDontHaveAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="Don't have an account? Register"
+        android:textColor="#050406"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/btSignIn"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btSignIn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/sign_in_button_background"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/fragment_sign_in_login_button_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

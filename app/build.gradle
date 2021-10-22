@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id "androidx.navigation.safeargs"
+    id 'com.google.gms.google-services'
+}
+
+android {
+    compileSdk compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.gvelesiani.movieapp"
+        minSdk minSdkVersion
+        targetSdk targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:$androidx_core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation "androidx.test.ext:junit:$junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:$okHttp_version"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    // implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewModel_version"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+
+    implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
+
+
+}

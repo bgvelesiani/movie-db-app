@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivMoviePoster"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="30dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivMoviePoster"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_light"
+        android:maxLength="60"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvMovieName"
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieReleaseDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvMovieDescription"
+        app:layout_constraintStart_toStartOf="@+id/tvMovieDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieDescription" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/movie_rating_text_background"
+        android:fontFamily="@font/poppins_regular"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvMovieDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieReleaseDate"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
