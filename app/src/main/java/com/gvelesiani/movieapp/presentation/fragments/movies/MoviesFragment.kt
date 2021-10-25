@@ -11,7 +11,6 @@ import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
 import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
 import com.gvelesiani.movieapp.other.extensions.gone
 import com.gvelesiani.movieapp.other.extensions.visible
-import kotlinx.android.synthetic.main.fragment_movies.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
@@ -24,17 +23,14 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         findNavController().navigate(action)
     }
 
-    override fun setViewBinding(): FragmentMoviesBinding {
-        return FragmentMoviesBinding.inflate(layoutInflater)
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMoviesBinding
+        get() = FragmentMoviesBinding::inflate
 
-
-    override fun setupView(binding: FragmentMoviesBinding, savedInstanceState: Bundle?) {
+    override fun setupView(savedInstanceState: Bundle?) {
         setUpRecyclerViewWithAdapter()
         viewModel.getPopularMovies(1)
 
         setUpObservers()
-
     }
 
 //    private fun setupSearchView() {
@@ -50,7 +46,7 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
 //    }
 
     private fun setUpRecyclerViewWithAdapter() {
-        rvMovies.apply {
+        binding.rvMovies.apply {
             adapter = recyclerViewAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
@@ -66,12 +62,13 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
 
         viewModel.loader.observe(this, { showLoader ->
             if (showLoader) {
-                progress_bar.visible()
+                binding.progressBar.visible()
             } else {
-                progress_bar.gone()
+                binding.progressBar.gone()
             }
         })
     }
 
     override fun provideViewModel(): MoviesViewModel = viewModel
+
 }

@@ -11,23 +11,20 @@ import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.base.BaseFragment
-import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
 import com.gvelesiani.movieapp.databinding.FragmentWelcomeBinding
 import com.gvelesiani.movieapp.other.extensions.getColorCompat
-import kotlinx.android.synthetic.main.fragment_welcome.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>() {
     private val viewModel: WelcomeViewModel by viewModel()
 
-    override fun setViewBinding(): FragmentWelcomeBinding {
-        return FragmentWelcomeBinding.inflate(layoutInflater)
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentWelcomeBinding
+        get() = FragmentWelcomeBinding::inflate
 
     override fun provideViewModel(): WelcomeViewModel = viewModel
 
-    override fun setupView(binding: FragmentWelcomeBinding, savedInstanceState: Bundle?) {
+    override fun setupView(savedInstanceState: Bundle?) {
         setUpWelcomeScreenAppNameText()
 
         binding.btGetStarted.setOnClickListener {
@@ -54,6 +51,6 @@ class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>()
         )
         builder.append(redSpannable)
 
-        tvAppName.setText(builder, TextView.BufferType.SPANNABLE)
+        binding.tvAppName.setText(builder, TextView.BufferType.SPANNABLE)
     }
 }

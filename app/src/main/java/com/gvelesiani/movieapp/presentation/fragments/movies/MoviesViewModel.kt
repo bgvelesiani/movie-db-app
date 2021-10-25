@@ -22,18 +22,8 @@ class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCa
             return _movies
         }
 
-//    fun getPopularMovies(page: Int) {
-//        loader.postValue(true)
-//        getPopularMoviesUseCase.execute(viewModelScope, page, onSuccess = { response ->
-//            loader.postValue(false)
-//            _movies.value = response.body()!!
-//        }, onFailure = {
-//            loader.postValue(false)
-//            d("onError", it.message.toString())
-//        })
-//    }
-
     fun getPopularMovies(id: Int) {
+        loader.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val movies = getPopularMoviesUseCase.run(id)
@@ -41,9 +31,10 @@ class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCa
                     movies.body().notNull {
                         _movies.value = it
                     }
-
                 }
+                loader.postValue(false)
             } catch (e: Exception) {
+                loader.postValue(false)
                 d("onError", e.message.toString())
             }
         }

@@ -16,11 +16,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     private val viewModel: MainViewModel by viewModel()
 
-    override val binding: ActivityMainBinding
-        get() = ActivityMainBinding.inflate(layoutInflater)
+    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
+        get() = ActivityMainBinding::inflate
 
-
-    override fun setupView(binding: ActivityMainBinding, savedInstanceState: Bundle?) {
+    override fun setupView(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         setupObservers()
         isNetworkAvailable()

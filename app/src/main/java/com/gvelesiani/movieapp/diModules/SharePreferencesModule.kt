@@ -9,6 +9,7 @@ import org.koin.dsl.module
 val sharedPreferencesModule = module {
     single { provideSharedPref(androidApplication()) }
 }
+
 fun provideSharedPref(app: Application): SharedPreferences {
     return app.applicationContext.getSharedPreferences(
         "Moviio_Preferences",

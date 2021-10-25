@@ -7,48 +7,38 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VIEW_MODEL : BaseViewModel, T : ViewBinding> :
-    Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding> : Fragment() {
 
-    private lateinit var viewModel: VIEW_MODEL
-    private var _binding: T? = null
-    private val binding get() = _binding!!
+    private lateinit var viewModel: VM
 
-    abstract fun setViewBinding(): T
+    protected lateinit var binding: B
+
+    abstract fun provideViewModel(): VM
+
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> B
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = setViewBinding()
-        return _binding?.root
+    ): View {
+        binding = bindingInflater.invoke(inflater, container, false)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupView(binding, savedInstanceState)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
+    abstract fun setupView(savedInstanceState: Bundle?)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = provideViewModel()
     }
 
-    abstract fun setupView(binding: T, savedInstanceState: Bundle?)
-
-    abstract fun provideViewModel(): VIEW_MODEL
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupView(savedInstanceState)
     }
 
-    fun getViewModel(): VIEW_MODEL {
+    fun getViewModel(): VM {
         return viewModel
     }
 }
