@@ -8,3 +8,5 @@ object ApiEndpoints {
     const val POPULAR_MOVIES = "/3/movie/popular"
     const val SIMILAR_MOVIES = "/3/movie/{movie_id}/similar"
 }
+
+const val IS_WELCOME_BUTTON_CLICKED = "isWelcomeScreenButtonClicked"

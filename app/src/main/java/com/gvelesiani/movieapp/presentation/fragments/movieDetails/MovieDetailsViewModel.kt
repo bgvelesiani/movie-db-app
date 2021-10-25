@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.gvelesiani.movieapp.base.BaseViewModel
 import com.gvelesiani.movieapp.domain.models.MovieList
 import com.gvelesiani.movieapp.domain.useCases.GetSimilarMoviesUseCase
+import com.gvelesiani.movieapp.other.extensions.notNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,7 +27,9 @@ class MovieDetailsViewModel(private val getSimilarMoviesUseCase: GetSimilarMovie
             try {
                 val movies = getSimilarMoviesUseCase.run(id)
                 withContext(Dispatchers.Main) {
-                    _similarMovies.value = movies.body()
+                    movies.body().notNull {
+                        _similarMovies.value = it
+                    }
                 }
             } catch (e: Exception) {
                 d("onError", e.message.toString())

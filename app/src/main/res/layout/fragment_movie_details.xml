@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#14151C"
     android:layout_height="wrap_content"
     tools:context=".presentation.fragments.movieDetails.MovieDetailsFragment">
 
@@ -35,7 +36,7 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:maxLines="2"
-            android:textColor="#090A0E"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/btBack"
             app:layout_constraintEnd_toEndOf="@+id/ivMoviePoster"
@@ -61,7 +62,7 @@
             android:layout_marginTop="36dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/fragment_movie_details_summary_header_text"
-            android:textColor="#090A0E"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/glStart"
             app:layout_constraintTop_toBottomOf="@+id/ivMoviePoster" />
@@ -72,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_light"
-            android:textColor="#090A0E"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/glEnd"
             app:layout_constraintStart_toStartOf="@+id/glStart"
@@ -85,7 +86,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/fragment_movie_details_suggested_movies_header_text"
-            android:textColor="#090A0E"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/glStart"
             app:layout_constraintTop_toBottomOf="@+id/tvMovieDescription" />

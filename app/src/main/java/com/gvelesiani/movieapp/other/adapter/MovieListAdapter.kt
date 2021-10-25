@@ -1,12 +1,11 @@
 package com.gvelesiani.movieapp.other.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
+import com.gvelesiani.movieapp.databinding.MovieItemBinding
 import com.gvelesiani.movieapp.domain.models.Movie
 import com.gvelesiani.movieapp.other.extensions.loadFromUrl
 import com.makeramen.roundedimageview.RoundedImageView
@@ -18,16 +17,16 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
 
     private var movieList: List<Movie> = listOf()
 
-    class MyItemViewHolder(itemView: View, clickAtPosition: (Int) -> Unit) :
-        RecyclerView.ViewHolder(itemView) {
-        val title: AppCompatTextView = itemView.findViewById(R.id.tvMovieName)
-        val description: AppCompatTextView = itemView.findViewById(R.id.tvMovieDescription)
-        val releaseDate: AppCompatTextView = itemView.findViewById(R.id.tvMovieReleaseDate)
-        val poster: RoundedImageView = itemView.findViewById(R.id.ivMoviePoster)
-        val rating: AppCompatTextView = itemView.findViewById(R.id.tvRating)
+    class MyItemViewHolder(binding: MovieItemBinding, clickAtPosition: (Int) -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
+        val title: AppCompatTextView = binding.tvMovieName
+        val description: AppCompatTextView = binding.tvMovieDescription
+        val releaseDate: AppCompatTextView = binding.tvMovieReleaseDate
+        val poster: RoundedImageView = binding.ivMoviePoster
+        val rating: AppCompatTextView = binding.tvRating
 
         init {
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
                 clickAtPosition(adapterPosition)
             }
         }
@@ -39,7 +38,7 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyItemViewHolder {
         return MyItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+            MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         ) { position ->
             clickListener(movieList[position])
         }

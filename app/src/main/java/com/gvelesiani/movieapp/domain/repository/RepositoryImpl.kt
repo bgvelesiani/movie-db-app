@@ -1,6 +1,7 @@
 package com.gvelesiani.movieapp.domain.repository
 
 import android.content.SharedPreferences
+import com.gvelesiani.movieapp.constants.IS_WELCOME_BUTTON_CLICKED
 import com.gvelesiani.movieapp.domain.api.NetworkApi
 import com.gvelesiani.movieapp.domain.models.MovieList
 import retrofit2.Response
@@ -18,10 +19,10 @@ class RepositoryImpl(
     }
 
     override suspend fun getWelcomeScreenButtonState(): Boolean {
-        return sharedPreferences.getBoolean("isWelcomeScreenButtonClicked", false)
+        return sharedPreferences.getBoolean(IS_WELCOME_BUTTON_CLICKED, false)
     }
 
     override suspend fun updateWelcomeScreenButtonState(isClicked: Boolean) {
-        sharedPreferences.edit().putBoolean("isWelcomeScreenButtonClicked", true).apply()
+        sharedPreferences.edit().putBoolean(IS_WELCOME_BUTTON_CLICKED, true).apply()
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.gvelesiani.movieapp.base.BaseViewModel
 import com.gvelesiani.movieapp.domain.models.MovieList
 import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
+import com.gvelesiani.movieapp.other.extensions.notNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,7 +38,10 @@ class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCa
             try {
                 val movies = getPopularMoviesUseCase.run(id)
                 withContext(Dispatchers.Main) {
-                    _movies.value = movies.body()
+                    movies.body().notNull {
+                        _movies.value = it
+                    }
+
                 }
             } catch (e: Exception) {
                 d("onError", e.message.toString())
