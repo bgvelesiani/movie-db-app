@@ -36,3 +36,7 @@ class Movie(
     @SerializedName("original_language")
     val movieStatus: String
 ) : Parcelable
+
+sealed class UIModel {
+    data class MovieModel(val model: Movie) : UIModel()
+}

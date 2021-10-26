@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#14151C"
     android:layout_height="wrap_content"
+    android:background="#14151C"
     tools:context=".presentation.fragments.movieDetails.MovieDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +49,6 @@
             android:layout_height="350dp"
             android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toStartOf="@+id/glEnd"
             app:layout_constraintStart_toStartOf="@+id/glStart"
             app:layout_constraintTop_toBottomOf="@+id/btBack"

@@ -7,15 +7,15 @@
     tools:context=".presentation.fragments.welcome.WelcomeFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:src="@drawable/welcome_screen_background"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:layout_height="match_parent"/>
+        android:src="@drawable/welcome_screen_background" />
 
     <View
-        android:background="@drawable/welcome_screen_background_cover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/welcome_screen_background_cover" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvAppName"
@@ -54,8 +54,8 @@
         android:fontFamily="@font/poppins_regular"
         android:text="@string/fragment_welcome_button_text"
         android:textAllCaps="false"
-        android:textSize="13sp"
         android:textColor="@color/white"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glEnd"
         app:layout_constraintStart_toStartOf="@+id/glStart" />

@@ -32,7 +32,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
         viewModel.isClicked.observe(this, {
             if (it) {
-                findNavController(R.id.nav_host_fragment).navigate(
+                findNavController(R.id.navHostFragment).navigate(
                     R.id.action_welcomeFragment_to_moviesFragment,
                     null,
                     navOptions

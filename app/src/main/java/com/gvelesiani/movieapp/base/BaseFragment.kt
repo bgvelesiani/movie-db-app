@@ -11,7 +11,8 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding> : Fragment() {
 
     private lateinit var viewModel: VM
 
-    protected lateinit var binding: B
+    private var _binding: B? = null
+    val binding get() = _binding!!
 
     abstract fun provideViewModel(): VM
 
@@ -22,11 +23,15 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = bindingInflater.invoke(inflater, container, false)
+        _binding = bindingInflater.invoke(inflater, container, false)
         return binding.root
     }
 
     abstract fun setupView(savedInstanceState: Bundle?)
+
+    fun getViewModel(): VM {
+        return viewModel
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -38,7 +43,8 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding> : Fragment() {
         setupView(savedInstanceState)
     }
 
-    fun getViewModel(): VM {
-        return viewModel
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

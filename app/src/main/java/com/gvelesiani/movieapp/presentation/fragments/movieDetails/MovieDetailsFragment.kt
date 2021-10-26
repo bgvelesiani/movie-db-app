@@ -11,7 +11,7 @@ import com.gvelesiani.movieapp.base.BaseFragment
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
 import com.gvelesiani.movieapp.databinding.FragmentMovieDetailsBinding
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
+import com.gvelesiani.movieapp.other.adapter.SimilarMovieListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDetailsBinding>() {
@@ -21,7 +21,7 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieDetailsBinding
         get() = FragmentMovieDetailsBinding::inflate
 
-    private val recyclerViewAdapter = MovieListAdapter {
+    private val recyclerViewAdapter = SimilarMovieListAdapter {
         val action =
             MovieDetailsFragmentDirections.actionMovieDetailsFragmentSelf(it)
         findNavController().navigate(action)
