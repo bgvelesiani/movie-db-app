@@ -1,6 +1,8 @@
 package com.gvelesiani.movieapp.presentation.fragments.movieDetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
@@ -30,8 +32,9 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
         val movie = MovieDetailsFragmentArgs.fromBundle(requireArguments()).movie
         viewModel.getSimilarMovies(movie.movieId)
         setupMovieDetails(movie)
-        setUpRecyclerViewWithAdapter()
         setUpObservers()
+        setUpRecyclerViewWithAdapter()
+
         setupOnClickListeners()
     }
 
@@ -44,14 +47,15 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
     private fun setUpRecyclerViewWithAdapter() {
         binding.rvSimilarMovies.apply {
             adapter = recyclerViewAdapter
-            layoutManager =
-                LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setUpObservers() {
         viewModel.similarMovies.observe(this, { list ->
             recyclerViewAdapter.addData(list.movieResults)
+            recyclerViewAdapter.notifyDataSetChanged()
         })
     }
 

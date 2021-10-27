@@ -7,7 +7,7 @@ import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
 import com.gvelesiani.movieapp.other.extensions.notNull
 import kotlinx.coroutines.delay
 
-class MovieDataSource(
+class PopularMoviesDataSource(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 ) : PagingSource<Int, Movie>() {
 

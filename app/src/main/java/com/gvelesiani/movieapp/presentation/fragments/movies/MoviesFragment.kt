@@ -3,6 +3,7 @@ package com.gvelesiani.movieapp.presentation.fragments.movies
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.gvelesiani.movieapp.base.BaseFragment
 import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
 import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
 import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
+import com.gvelesiani.movieapp.other.extensions.gone
 import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.load_state_footer_view_item.*
@@ -38,6 +40,10 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         setupListeners()
         setupRecyclerViewWithAdapter()
         setupObservers()
+
+        if (recyclerViewAdapter.itemCount > 0) {
+            binding.progressBar.gone()
+        }
     }
 
     private fun setupRecyclerViewWithAdapter() {

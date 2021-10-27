@@ -82,9 +82,9 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
         binding.searchView.setOnCloseListener {
             binding.searchView.clearFocus()
-            viewLifecycleOwner.lifecycleScope.launch {
-                recyclerViewAdapter.submitData(PagingData.empty())
-            }
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                recyclerViewAdapter.submitData(PagingData.empty())
+//            }
             binding.tvFindFavourite.visible()
             false
         }

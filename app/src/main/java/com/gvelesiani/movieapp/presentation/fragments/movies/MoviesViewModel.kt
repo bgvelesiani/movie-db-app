@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.gvelesiani.movieapp.base.BaseViewModel
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.domain.pagingDataSource.MovieDataSource
+import com.gvelesiani.movieapp.domain.pagingDataSource.PopularMoviesDataSource
 import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
 import kotlinx.coroutines.flow.Flow
 
@@ -19,7 +19,7 @@ class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCa
             config = PagingConfig(
                 pageSize = 20
             ),
-            pagingSourceFactory = { MovieDataSource(getPopularMoviesUseCase) }
+            pagingSourceFactory = { PopularMoviesDataSource(getPopularMoviesUseCase) }
         ).flow
             .cachedIn(viewModelScope)
     }

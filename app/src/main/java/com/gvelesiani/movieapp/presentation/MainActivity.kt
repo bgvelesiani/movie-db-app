@@ -6,7 +6,10 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.base.BaseActivity
 import com.gvelesiani.movieapp.databinding.ActivityMainBinding
@@ -18,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     private lateinit var navController: NavController
-
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private val viewModel: MainViewModel by viewModel()
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
@@ -27,12 +30,20 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun setupView(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         isNetworkAvailable()
+        setUpNavigation()
+    }
 
-        //binding.vp.adapter = ViewPagerFragmentAdapter(this)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        navController = navHostFragment.findNavController()
+    private fun setUpNavigation() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setupWithNavController(navController)
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.moviesFragment, R.id.searchFragment, R.id.movieDetailsFragment)
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     private fun isNetworkAvailable() {
@@ -43,18 +54,3 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun provideViewModel(): MainViewModel = viewModel
 }
-
-//class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) :
-//    FragmentStateAdapter(fragmentActivity) {
-//    override fun createFragment(position: Int): Fragment {
-//        when (position) {
-//            0 -> return MoviesFragment()
-//            1 -> return SearchFragment()
-//        }
-//        return MoviesFragment()
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return 2
-//    }
-//}
