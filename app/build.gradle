@@ -64,13 +64,12 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
-    implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
-    implementation 'com.google.firebase:firebase-analytics'
-
     implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
 
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
 
+    implementation "jp.wasabeef:recyclerview-animators:$wasabeef_recycler_view_animator_version"
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_navigation"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/moviesFragment">
 
     <fragment
         android:id="@+id/moviesFragment"
@@ -27,13 +27,12 @@
             app:destination="@id/movieDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.gvelesiani.movieapp.presentation.fragments.welcome.WelcomeFragment"
-        android:label="welcomeFragment">
+        android:id="@+id/searchFragment"
+        android:name="com.gvelesiani.movieapp.presentation.fragments.searchFragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_welcomeFragment_to_moviesFragment"
-            app:destination="@id/moviesFragment"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
 </navigation>

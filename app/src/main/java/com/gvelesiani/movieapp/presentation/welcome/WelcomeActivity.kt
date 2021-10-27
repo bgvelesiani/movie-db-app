@@ -1,39 +1,47 @@
-package com.gvelesiani.movieapp.presentation.fragments.welcome
+package com.gvelesiani.movieapp.presentation.welcome
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
 import com.gvelesiani.movieapp.R
-import com.gvelesiani.movieapp.base.BaseFragment
-import com.gvelesiani.movieapp.databinding.FragmentWelcomeBinding
+import com.gvelesiani.movieapp.base.BaseActivity
+import com.gvelesiani.movieapp.databinding.ActivityWelcomeBinding
 import com.gvelesiani.movieapp.other.extensions.getColorCompat
+import com.gvelesiani.movieapp.presentation.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>() {
+class WelcomeActivity : BaseActivity<WelcomeViewModel, ActivityWelcomeBinding>() {
     private val viewModel: WelcomeViewModel by viewModel()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentWelcomeBinding
-        get() = FragmentWelcomeBinding::inflate
+    override val bindingInflater: (LayoutInflater) -> ActivityWelcomeBinding
+        get() = ActivityWelcomeBinding::inflate
 
     override fun provideViewModel(): WelcomeViewModel = viewModel
 
     override fun setupView(savedInstanceState: Bundle?) {
-        setUpWelcomeScreenAppNameText()
+        setupWelcomeScreenAppNameText()
+        navigateToMainScreen()
+    }
 
-        binding.btGetStarted.setOnClickListener {
-            viewModel.updateWelcomeScreenButtonStateUseCase(true)
-            findNavController().navigate(R.id.action_welcomeFragment_to_moviesFragment)
+    private fun navigateToMainScreen() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(2000)
+            startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
+            finish()
         }
     }
 
-    private fun setUpWelcomeScreenAppNameText() {
+    private fun setupWelcomeScreenAppNameText() {
         val builder = SpannableStringBuilder()
 
         val white = getString(R.string.app_name)
@@ -44,7 +52,7 @@ class WelcomeFragment : BaseFragment<WelcomeViewModel, FragmentWelcomeBinding>()
         val red = "."
         val redSpannable = SpannableString(red)
         redSpannable.setSpan(
-            ForegroundColorSpan(requireContext().getColorCompat(R.color.welcome_screen_dot_color)),
+            ForegroundColorSpan(this.getColorCompat(R.color.colorSecondary)),
             0,
             red.length,
             0

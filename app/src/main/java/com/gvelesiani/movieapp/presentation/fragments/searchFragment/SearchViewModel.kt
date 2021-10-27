@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.presentation.fragments.movies
+package com.gvelesiani.movieapp.presentation.fragments.searchFragment
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -7,21 +7,18 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.gvelesiani.movieapp.base.BaseViewModel
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.domain.pagingDataSource.MovieDataSource
-import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
+import com.gvelesiani.movieapp.domain.pagingDataSource.SearchMoviesDataSource
+import com.gvelesiani.movieapp.domain.useCases.SearchMoviesUseCase
 import kotlinx.coroutines.flow.Flow
 
-class MoviesViewModel(private val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
-    BaseViewModel() {
-
-    fun getMovies(): Flow<PagingData<Movie>> {
+class SearchViewModel(private val searchMoviesUseCase: SearchMoviesUseCase) : BaseViewModel() {
+    fun getSearchedMovies(query: String): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20
             ),
-            pagingSourceFactory = { MovieDataSource(getPopularMoviesUseCase) }
+            pagingSourceFactory = { SearchMoviesDataSource(searchMoviesUseCase, query) }
         ).flow
             .cachedIn(viewModelScope)
     }
-
 }

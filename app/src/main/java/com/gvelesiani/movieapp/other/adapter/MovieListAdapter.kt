@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
 import com.gvelesiani.movieapp.databinding.MovieItemBinding
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.domain.models.UIModel
 import com.gvelesiani.movieapp.other.extensions.loadFromUrl
+import com.gvelesiani.movieapp.other.extensions.notNull
 import com.makeramen.roundedimageview.RoundedImageView
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
-    PagingDataAdapter<UIModel, MovieListAdapter.MyItemViewHolder>(MOVIE_COMPARATOR) {
+    PagingDataAdapter<Movie, MovieListAdapter.MyItemViewHolder>(MOVIE_COMPARATOR) {
 
     class MyItemViewHolder(binding: MovieItemBinding, clickAtPosition: (Int) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
@@ -37,10 +37,10 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
         return MyItemViewHolder(
             MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         ) { position ->
-            val uiModel = getItem(position)
-            uiModel.let {
-                when (uiModel) {
-                    is UIModel.MovieModel -> clickListener(uiModel.model)
+            val movie = getItem(position)
+            movie.let { it ->
+                it.notNull {
+                    clickListener(it)
                 }
             }
         }
@@ -64,23 +64,18 @@ class MovieListAdapter(private val clickListener: (Movie) -> Unit) :
             }
         }
 
-        val uiModel = getItem(position)
-        uiModel.let {
-            when (uiModel) {
-                is UIModel.MovieModel -> setupMovie(uiModel.model)
-            }
-        }
+        setupMovie(getItem(position)!!)
     }
 
 
     companion object {
-        private val MOVIE_COMPARATOR = object : DiffUtil.ItemCallback<UIModel>() {
-            override fun areItemsTheSame(oldItem: UIModel, newItem: UIModel): Boolean {
-                return (oldItem is UIModel.MovieModel && newItem is UIModel.MovieModel && oldItem.model.movieTitle == newItem.model.movieTitle)
+        private val MOVIE_COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.movieTitle == newItem.movieTitle
             }
 
-            override fun areContentsTheSame(oldItem: UIModel, newItem: UIModel): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.movieId == newItem.movieId
             }
 
         }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#14151C"
+    android:background="@color/colorPrimaryVariant"
     tools:context=".presentation.fragments.movieDetails.MovieDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,8 +22,8 @@
 
         <View
             android:id="@+id/btBackClickArea"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/dimen_0dp"
+            android:layout_height="@dimen/dimen_0dp"
             app:layout_constraintBottom_toBottomOf="@+id/btBack"
             app:layout_constraintEnd_toEndOf="@+id/btBack"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMovieName"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
@@ -68,7 +68,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@id/tvMovieDescription"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_light"
@@ -92,7 +92,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSimilarMovies"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"

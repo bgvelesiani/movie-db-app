@@ -9,4 +9,7 @@
     <string name="fragment_movie_details_suggested_movies_header_text">Suggested movies</string>
     <string name="fragment_welcome_welcome_text">Welcome to Moviio, here you can find movies, with their ratings and some additional information!</string>
     <string name="network_erorr_message">Please connect to a network</string>
+    <string name="bottom_menu_movies_screen_title">Movies</string>
+    <string name="bottom_menu_search_screen_title">Search</string>
+    <string name="search_screen_find_fav_movies_text">Find your favourite movies</string>
 </resources>

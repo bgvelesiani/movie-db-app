@@ -1,9 +1,6 @@
 package com.gvelesiani.movieapp.diModules
 
-import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
-import com.gvelesiani.movieapp.domain.useCases.GetSimilarMoviesUseCase
-import com.gvelesiani.movieapp.domain.useCases.GetWelcomeScreenButtonStateUseCase
-import com.gvelesiani.movieapp.domain.useCases.UpdateWelcomeScreenButtonStateUseCase
+import com.gvelesiani.movieapp.domain.useCases.*
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -16,10 +13,6 @@ val useCasesModule = module {
     }
 
     factory {
-        GetWelcomeScreenButtonStateUseCase(get())
-    }
-
-    factory {
-        UpdateWelcomeScreenButtonStateUseCase(get())
+        SearchMoviesUseCase(get())
     }
 }

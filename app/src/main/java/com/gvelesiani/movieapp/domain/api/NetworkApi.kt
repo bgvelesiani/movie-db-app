@@ -11,6 +11,12 @@ interface NetworkApi {
     @GET(ApiEndpoints.POPULAR_MOVIES)
     suspend fun getPopularMovies(@Query("page") page: Int): Response<MovieList>
 
+    @GET(ApiEndpoints.SEARCH_MOVIES)
+    suspend fun searchMovies(
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Response<MovieList>
+
     @GET(ApiEndpoints.SIMILAR_MOVIES)
     suspend fun getSimilarMovies(@Path("movie_id") movieId: Int): Response<MovieList>
 }

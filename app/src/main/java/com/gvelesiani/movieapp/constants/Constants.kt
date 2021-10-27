@@ -7,6 +7,5 @@ const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 object ApiEndpoints {
     const val POPULAR_MOVIES = "/3/movie/popular"
     const val SIMILAR_MOVIES = "/3/movie/{movie_id}/similar"
+    const val SEARCH_MOVIES = "/3/search/movie"
 }
-
-const val IS_WELCOME_BUTTON_CLICKED = "isWelcomeScreenButtonClicked"

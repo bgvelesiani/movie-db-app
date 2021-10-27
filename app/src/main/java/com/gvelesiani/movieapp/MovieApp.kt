@@ -7,7 +7,7 @@ import org.koin.core.module.Module
 class MovieApp : BaseApplication() {
     override fun provideKoinModules(): List<Module> {
         return listOf(
-            viewModelsModule, networkModule, useCasesModule, appModule, sharedPreferencesModule
+            viewModelsModule, networkModule, useCasesModule, appModule
         )
     }
 }

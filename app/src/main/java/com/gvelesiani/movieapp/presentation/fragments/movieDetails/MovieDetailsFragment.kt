@@ -1,6 +1,5 @@
 package com.gvelesiani.movieapp.presentation.fragments.movieDetails
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -46,15 +45,13 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
         binding.rvSimilarMovies.apply {
             adapter = recyclerViewAdapter
             layoutManager =
-                LinearLayoutManager(requireContext())//, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(requireContext())
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setUpObservers() {
         viewModel.similarMovies.observe(this, { list ->
             recyclerViewAdapter.addData(list.movieResults)
-            recyclerViewAdapter.notifyDataSetChanged()
         })
     }
 

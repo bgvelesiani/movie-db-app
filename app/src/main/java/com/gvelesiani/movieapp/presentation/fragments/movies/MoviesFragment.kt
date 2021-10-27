@@ -14,10 +14,12 @@ import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
 import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
 import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
 import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.load_state_footer_view_item.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
 
@@ -33,39 +35,38 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         get() = FragmentMoviesBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        setUpRecyclerViewWithAdapter()
         setupListeners()
-        setUpObservers()
+        setupRecyclerViewWithAdapter()
+        setupObservers()
     }
 
-    private fun setUpRecyclerViewWithAdapter() {
+    private fun setupRecyclerViewWithAdapter() {
         binding.rvMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = recyclerViewAdapter.withLoadStateHeaderAndFooter(
-                footer = MovieLoadStateAdapter(requireContext()) { recyclerViewAdapter.retry() },
-                header = MovieLoadStateAdapter(requireContext()) { recyclerViewAdapter.retry() })
+            adapter = recyclerViewAdapter.withLoadStateFooter(
+                footer = MovieLoadStateAdapter(requireContext()) { recyclerViewAdapter.retry() })
+            itemAnimator = LandingAnimator()
         }
     }
 
     private fun setupListeners() {
-        recyclerViewAdapter.addLoadStateListener {
-            binding.progressBar.isVisible = it.refresh is LoadState.Loading
-        }
-
         binding.swLayout.setOnRefreshListener {
             if (recyclerViewAdapter.itemCount == 0 && requireContext().isNetworkAvailable) {
-                setUpObservers()
+                setupObservers()
                 binding.swLayout.isRefreshing = false
             } else {
                 recyclerViewAdapter.submitData(lifecycle, PagingData.empty())
-                setUpObservers()
+                setupObservers()
                 binding.swLayout.isRefreshing = false
-
             }
+        }
+
+        recyclerViewAdapter.addLoadStateListener {
+            binding.progressBar.isVisible = it.refresh is LoadState.Loading
         }
     }
 
-    private fun setUpObservers() {
+    private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getMovies().collectLatest { pagingData ->
                 recyclerViewAdapter.submitData(pagingData)
