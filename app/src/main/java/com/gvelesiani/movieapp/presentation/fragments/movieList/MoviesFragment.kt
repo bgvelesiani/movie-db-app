@@ -17,6 +17,7 @@ import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
 import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
 import com.gvelesiani.movieapp.other.extensions.gone
 import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
+import com.mikepenz.itemanimators.AlphaInAnimator
 import kotlinx.android.synthetic.main.load_state_footer_view_item.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
@@ -50,7 +51,7 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recyclerViewAdapter.withLoadStateFooter(
                 footer = MovieLoadStateAdapter(requireContext()) { recyclerViewAdapter.retry() })
-            //itemAnimator = ScaleInAnimator()
+            itemAnimator = AlphaInAnimator()
         }
     }
 

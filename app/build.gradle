@@ -70,7 +70,7 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
 
-    implementation "jp.wasabeef:recyclerview-animators:$wasabeef_recycler_view_animator_version"
+    implementation "com.mikepenz:itemanimators:$recycler_view_animator_version"
 
     implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
 
