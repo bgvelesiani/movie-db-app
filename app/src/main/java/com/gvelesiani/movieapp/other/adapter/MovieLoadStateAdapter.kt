@@ -27,7 +27,7 @@ class MovieLoadStateAdapter(
         progress.isVisible = loadState is LoadState.Loading
 
         if (loadState is LoadState.Error) {
-            txtErrorMessage.text = context.getString(R.string.network_erorr_message)
+            txtErrorMessage.text = context.getString(R.string.network_error_message)
         }
 
         btnRetry.setOnClickListener {

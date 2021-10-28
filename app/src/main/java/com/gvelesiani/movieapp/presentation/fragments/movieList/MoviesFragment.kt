@@ -1,9 +1,7 @@
-package com.gvelesiani.movieapp.presentation.fragments.movies
+package com.gvelesiani.movieapp.presentation.fragments.movieList
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -14,6 +12,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gvelesiani.movieapp.base.BaseFragment
 import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
+import com.gvelesiani.movieapp.domain.ConnectionLiveData
 import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
 import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
 import com.gvelesiani.movieapp.other.extensions.gone
@@ -27,6 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
 
+    private lateinit var connectionLiveData: ConnectionLiveData
     private val viewModel: MoviesViewModel by viewModel()
 
     private val recyclerViewAdapter = MovieListAdapter {
@@ -39,6 +39,7 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         get() = FragmentMoviesBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        connectionLiveData = ConnectionLiveData(requireContext())
         setupListeners()
         setupRecyclerViewWithAdapter()
         checkNetworkAndSetupObservers()
@@ -58,15 +59,10 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         binding.swLayout.setOnRefreshListener {
             if (requireContext().isNetworkAvailable) {
                 emptyRecyclerView(viewLifecycleOwner.lifecycleScope)
-
                 // add new data to rv
-                checkNetworkAndSetupObservers()
+                getItems()
             }
             binding.swLayout.isRefreshing = false
-        }
-
-        binding.btGoToSettings.setOnClickListener {
-            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         }
 
         recyclerViewAdapter.addLoadStateListener {
@@ -74,37 +70,36 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         }
     }
 
-
-    @SuppressLint("NotifyDataSetChanged")
     private fun checkNetworkAndSetupObservers() {
-        viewModel.connectionLiveData.observe(this, {
-            if (it) {
-                binding.btGoToSettings.gone()
+        connectionLiveData.observe(this, { isConnected ->
+            if (isConnected) {
                 binding.tvNoInternet.gone()
-
                 if (recyclerViewAdapter.itemCount > 0) {
                     binding.progressBar.gone()
                 } else {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewModel.getMovies().collectLatest { pagingData ->
-                            recyclerViewAdapter.submitData(pagingData)
-                            recyclerViewAdapter.notifyDataSetChanged()
-                        }
-
-                        recyclerViewAdapter.loadStateFlow.collectLatest { loadStates ->
-                            pfRetryState.isVisible = loadStates.refresh !is LoadState.Loading
-                        }
-                    }
+                    getItems()
                 }
             } else {
                 if (recyclerViewAdapter.itemCount > 0) {
-                    binding.btGoToSettings.gone()
                     binding.tvNoInternet.gone()
                 }
             }
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getItems() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getMovies().collectLatest { pagingData ->
+                recyclerViewAdapter.submitData(pagingData)
+                recyclerViewAdapter.notifyDataSetChanged()
+            }
+
+            recyclerViewAdapter.loadStateFlow.collectLatest { loadStates ->
+                pfRetryState.isVisible = loadStates.refresh !is LoadState.Loading
+            }
+        }
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun emptyRecyclerView(coroutineScope: CoroutineScope) {

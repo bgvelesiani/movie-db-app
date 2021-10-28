@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.presentation.fragments.searchFragment
+package com.gvelesiani.movieapp.presentation.fragments.movieSearch
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -42,14 +42,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
     override fun setupView(savedInstanceState: Bundle?) {
         setupRecyclerViewWithAdapter()
         setupSearchView()
-        setupListeners()
         checkRecyclerViewItemCount()
-    }
-
-    private fun setupListeners() {
-        recyclerViewAdapter.addLoadStateListener {
-            binding.searchProgressBar.isVisible = it.refresh is LoadState.Loading
-        }
     }
 
     private fun setupRecyclerViewWithAdapter() {
@@ -58,15 +51,19 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
             adapter = recyclerViewAdapter.withLoadStateFooter(
                 footer = MovieLoadStateAdapter(requireContext()) { recyclerViewAdapter.retry() })
         }
+        recyclerViewAdapter.addLoadStateListener {
+            binding.searchProgressBar.isVisible = it.refresh is LoadState.Loading
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setupSearchView() {
+        val isNetworkAvailable = requireContext().isNetworkAvailable
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.searchView.hideKeyboard()
 
-                if (query != null && requireContext().isNetworkAvailable) {
+                if (query != null && isNetworkAvailable) {
                     binding.tvFindFavourite.gone()
                     binding.ivFragmentSearchIcon.gone()
                     binding.tvNoInternet.gone()
@@ -82,7 +79,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
                             recyclerViewAdapter.notifyDataSetChanged()
                         }
                     }
-                } else if (query != null && !requireContext().isNetworkAvailable) {
+                } else if (query != null && !isNetworkAvailable) {
                     emptyRecyclerView(viewLifecycleOwner.lifecycleScope)
 
                     binding.tvNoInternet.visible()
@@ -103,7 +100,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
             binding.searchView.clearFocus()
             emptyRecyclerView(viewLifecycleOwner.lifecycleScope)
 
-            if (!requireContext().isNetworkAvailable) {
+            if (!isNetworkAvailable) {
                 binding.tvNoInternet.visible()
             } else {
                 binding.tvFindFavourite.visible()

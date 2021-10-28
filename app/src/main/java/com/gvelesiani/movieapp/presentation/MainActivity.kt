@@ -2,6 +2,7 @@ package com.gvelesiani.movieapp.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration

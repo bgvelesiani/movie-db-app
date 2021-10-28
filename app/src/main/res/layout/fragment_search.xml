@@ -5,7 +5,7 @@
     android:background="@color/colorPrimaryVariant"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragments.searchFragment.SearchFragment">
+    tools:context=".presentation.fragments.movieSearch.SearchFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glHorizontal"

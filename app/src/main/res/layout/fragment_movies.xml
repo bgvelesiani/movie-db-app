@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryVariant"
-    tools:context=".presentation.fragments.movies.MoviesFragment">
+    tools:context=".presentation.fragments.movieList.MoviesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,17 +34,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/glHorizontal" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btGoToSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dimen_60dp"
-            android:layout_marginTop="@dimen/dimen_40dp"
-            android:background="@drawable/bt_go_to_settings_background"
-            android:paddingHorizontal="@dimen/dimen_30dp"
-            android:text="@string/fragment_movies_bt_go_to_settings_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNoInternet" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btRefresh"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/dimen_60dp"-->
+<!--            android:layout_marginTop="@dimen/dimen_40dp"-->
+<!--            android:background="@drawable/bt_go_to_settings_background"-->
+<!--            android:paddingHorizontal="@dimen/dimen_30dp"-->
+<!--            android:text="@string/fragment_movies_bt_refresh_text"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvNoInternet" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMovies"

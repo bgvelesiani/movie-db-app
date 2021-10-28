@@ -1,6 +1,5 @@
 package com.gvelesiani.movieapp.presentation.fragments.movieDetails
 
-import android.app.Application
 import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,9 +13,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MovieDetailsViewModel(
-    private val getSimilarMoviesUseCase: GetSimilarMoviesUseCase, application: Application
+    private val getSimilarMoviesUseCase: GetSimilarMoviesUseCase
 ) :
-    BaseViewModel(application) {
+    BaseViewModel() {
 
     //var loader = MutableLiveData<Boolean>()
     private var _similarMovies: MutableLiveData<MovieList> = MutableLiveData()
