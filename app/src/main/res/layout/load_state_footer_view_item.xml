@@ -4,17 +4,17 @@
     android:id="@+id/pagerFooter"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="@dimen/dimen_16dp">
 
     <TextView
         android:id="@+id/pfErrorState"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
         android:maxLines="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/design_default_color_error"
-        android:textSize="16sp"
+        android:textSize="@dimen/dimen_16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pfRetryState"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
     <ProgressBar
         android:id="@+id/pfProgressState"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/dimen_60dp"
+        android:layout_height="@dimen/dimen_60dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:text="Retry"
+        android:text="@string/load_state_footer_view_retry_state_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

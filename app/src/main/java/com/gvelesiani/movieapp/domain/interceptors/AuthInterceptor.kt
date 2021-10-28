@@ -11,5 +11,4 @@ class AuthInterceptor : Interceptor {
         req = req.newBuilder().url(url).build()
         return chain.proceed(req)
     }
-
 }

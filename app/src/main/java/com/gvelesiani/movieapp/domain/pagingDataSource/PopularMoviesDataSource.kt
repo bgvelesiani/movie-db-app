@@ -1,5 +1,6 @@
 package com.gvelesiani.movieapp.domain.pagingDataSource
 
+import android.util.Log.d
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.gvelesiani.movieapp.domain.models.Movie
@@ -28,6 +29,7 @@ class PopularMoviesDataSource(
                 nextKey = page + 1
             )
         } catch (e: Exception) {
+            d("onError", e.message.toString())
             LoadResult.Error(e)
         }
     }

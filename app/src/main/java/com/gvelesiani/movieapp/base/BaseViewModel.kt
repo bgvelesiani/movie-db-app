@@ -1,5 +1,6 @@
 package com.gvelesiani.movieapp.base
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-abstract class BaseViewModel : ViewModel()
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application)

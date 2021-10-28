@@ -7,8 +7,7 @@ import retrofit2.Response
 
 class GetPopularMoviesUseCase(
     private val repository: Repository
-) : BaseUseCase<Int, Response<MovieList>>(
-) {
+) : BaseUseCase<Int, Response<MovieList>>() {
     override suspend fun run(params: Int): Response<MovieList> {
         return repository.getPopularMovies(params)
     }

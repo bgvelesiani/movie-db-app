@@ -1,5 +1,6 @@
 package com.gvelesiani.movieapp.presentation.fragments.searchFragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,7 +17,10 @@ import com.gvelesiani.movieapp.databinding.FragmentSearchBinding
 import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
 import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
 import com.gvelesiani.movieapp.other.extensions.gone
+import com.gvelesiani.movieapp.other.extensions.hideKeyboard
+import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
 import com.gvelesiani.movieapp.other.extensions.visible
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,6 +43,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         setupRecyclerViewWithAdapter()
         setupSearchView()
         setupListeners()
+        checkRecyclerViewItemCount()
     }
 
     private fun setupListeners() {
@@ -55,22 +60,36 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
+                binding.searchView.hideKeyboard()
+
+                if (query != null && requireContext().isNetworkAvailable) {
                     binding.tvFindFavourite.gone()
+                    binding.ivFragmentSearchIcon.gone()
+                    binding.tvNoInternet.gone()
+
                     viewLifecycleOwner.lifecycleScope.launch {
-                        recyclerViewAdapter.submitData(PagingData.empty())
+                        emptyRecyclerView(this)
 
                         viewModel.getSearchedMovies(query).collectLatest { pagingData ->
                             val data = pagingData.filter {
                                 it.movieTitle.contains(query)
                             }
                             recyclerViewAdapter.submitData(data)
+                            recyclerViewAdapter.notifyDataSetChanged()
                         }
                     }
+                } else if (query != null && !requireContext().isNetworkAvailable) {
+                    emptyRecyclerView(viewLifecycleOwner.lifecycleScope)
+
+                    binding.tvNoInternet.visible()
+                    binding.tvFindFavourite.gone()
+                    binding.ivFragmentSearchIcon.gone()
                 }
+
                 return true
             }
 
@@ -82,11 +101,30 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
         binding.searchView.setOnCloseListener {
             binding.searchView.clearFocus()
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                recyclerViewAdapter.submitData(PagingData.empty())
-//            }
-            binding.tvFindFavourite.visible()
+            emptyRecyclerView(viewLifecycleOwner.lifecycleScope)
+
+            if (!requireContext().isNetworkAvailable) {
+                binding.tvNoInternet.visible()
+            } else {
+                binding.tvFindFavourite.visible()
+                binding.ivFragmentSearchIcon.visible()
+            }
             false
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun emptyRecyclerView(coroutineScope: CoroutineScope) {
+        coroutineScope.launch {
+            recyclerViewAdapter.submitData(PagingData.empty())
+            recyclerViewAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun checkRecyclerViewItemCount() {
+        if (recyclerViewAdapter.itemCount > 0) {
+            binding.tvFindFavourite.gone()
+            binding.ivFragmentSearchIcon.gone()
         }
     }
 }

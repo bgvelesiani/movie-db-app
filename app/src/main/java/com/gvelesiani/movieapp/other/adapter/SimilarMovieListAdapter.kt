@@ -1,5 +1,6 @@
 package com.gvelesiani.movieapp.other.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
@@ -32,8 +33,10 @@ class SimilarMovieListAdapter(private val clickListener: (Movie) -> Unit) :
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addData(movies: List<Movie>) {
         movieList = movies
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyItemViewHolder {

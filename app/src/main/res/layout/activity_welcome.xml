@@ -22,10 +22,10 @@
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/dimen_20dp"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
-        android:textSize="34sp"
+        android:textSize="@dimen/dimen_35sp"
         app:layout_constraintBottom_toTopOf="@+id/tvWelcomeText"
         app:layout_constraintEnd_toStartOf="@+id/glEnd"
         app:layout_constraintStart_toStartOf="@+id/glStart" />
@@ -34,32 +34,17 @@
         android:id="@+id/tvWelcomeText"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_30dp"
         android:fontFamily="@font/poppins_light"
         android:gravity="center"
         android:text="@string/fragment_welcome_welcome_text"
         android:textColor="@color/white"
-        android:layout_marginBottom="50dp"
-        android:textSize="13sp"
+        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:textSize="@dimen/dimen_13sp"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
         app:layout_constraintEnd_toEndOf="@id/glEnd"
         app:layout_constraintStart_toStartOf="@+id/glStart" />
-
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/btGetStarted"-->
-<!--        android:layout_width="@dimen/dimen_0dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        android:background="@drawable/sign_in_button_background"-->
-<!--        android:fontFamily="@font/poppins_regular"-->
-<!--        android:text="@string/fragment_welcome_button_text"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="13sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/glEnd"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/glStart" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glStart"

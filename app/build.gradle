@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id "androidx.navigation.safeargs"
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -59,17 +60,18 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewModel_version"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-
-    implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
 
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
 
     implementation "jp.wasabeef:recyclerview-animators:$wasabeef_recycler_view_animator_version"
-    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
+
+    implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
+
 }

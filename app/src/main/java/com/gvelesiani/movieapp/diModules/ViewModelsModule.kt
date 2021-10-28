@@ -10,22 +10,22 @@ import org.koin.dsl.module
 
 val viewModelsModule = module {
     viewModel {
-        MainViewModel()
+        MainViewModel(get())
     }
 
     viewModel {
-        MoviesViewModel(get())
+        MoviesViewModel(get(), get())
     }
 
     viewModel {
-        MovieDetailsViewModel(get())
+        MovieDetailsViewModel(get(), get())
     }
 
     viewModel {
-        WelcomeViewModel()
+        WelcomeViewModel(get())
     }
 
     viewModel {
-        SearchViewModel(get())
+        SearchViewModel(get(), get())
     }
 }

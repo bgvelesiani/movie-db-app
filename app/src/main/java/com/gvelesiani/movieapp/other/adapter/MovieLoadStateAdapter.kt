@@ -28,7 +28,6 @@ class MovieLoadStateAdapter(
 
         if (loadState is LoadState.Error) {
             txtErrorMessage.text = context.getString(R.string.network_erorr_message)
-            //loadState.error.localizedMessage
         }
 
         btnRetry.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.gvelesiani.movieapp.presentation.fragments.searchFragment
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -11,7 +12,10 @@ import com.gvelesiani.movieapp.domain.pagingDataSource.SearchMoviesDataSource
 import com.gvelesiani.movieapp.domain.useCases.SearchMoviesUseCase
 import kotlinx.coroutines.flow.Flow
 
-class SearchViewModel(private val searchMoviesUseCase: SearchMoviesUseCase) : BaseViewModel() {
+class SearchViewModel(
+    private val searchMoviesUseCase: SearchMoviesUseCase, application: Application
+) :
+    BaseViewModel(application) {
     fun getSearchedMovies(query: String): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(

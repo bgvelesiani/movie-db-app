@@ -2,17 +2,16 @@ package com.gvelesiani.movieapp.presentation.fragments.movieDetails
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.gvelesiani.movieapp.base.BaseFragment
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
 import com.gvelesiani.movieapp.databinding.FragmentMovieDetailsBinding
 import com.gvelesiani.movieapp.domain.models.Movie
 import com.gvelesiani.movieapp.other.adapter.SimilarMovieListAdapter
+import com.gvelesiani.movieapp.other.extensions.loadFromUrl
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDetailsBinding>() {
@@ -62,8 +61,7 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
     private fun setupMovieDetails(movie: Movie) {
         with(binding) {
             tvMovieName.text = movie.movieTitle
-            Glide.with(requireContext()).load(BASE_IMAGE_URL + movie.imageUrl)
-                .into(ivMoviePoster)
+            ivMoviePoster.loadFromUrl(BASE_IMAGE_URL + movie.imageUrl)
 
             tvMovieDescription.text = movie.movieDescription
         }
