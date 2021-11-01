@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.domain
+package com.gvelesiani.movieapp.data
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE

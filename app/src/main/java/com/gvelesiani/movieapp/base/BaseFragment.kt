@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.reflect.KClass
 
-abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding> : Fragment() {
-
-    private lateinit var viewModel: VM
+abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) : Fragment() {
+    val viewModel: VM by viewModel(clazz = klass)
 
     private var _binding: B? = null
     val binding get() = _binding!!
-
-    abstract fun provideViewModel(): VM
 
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> B
 
@@ -28,15 +27,6 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding> : Fragment() {
     }
 
     abstract fun setupView(savedInstanceState: Bundle?)
-
-    fun getViewModel(): VM {
-        return viewModel
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = provideViewModel()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

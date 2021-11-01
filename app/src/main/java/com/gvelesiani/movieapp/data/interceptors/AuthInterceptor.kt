@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.domain.interceptors
+package com.gvelesiani.movieapp.data.interceptors
 
 import com.gvelesiani.movieapp.constants.API_KEY
 import okhttp3.Interceptor

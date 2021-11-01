@@ -10,23 +10,20 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.base.BaseActivity
+import com.gvelesiani.movieapp.common.extensions.getColorCompat
 import com.gvelesiani.movieapp.databinding.ActivityWelcomeBinding
-import com.gvelesiani.movieapp.other.extensions.getColorCompat
 import com.gvelesiani.movieapp.presentation.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class WelcomeActivity : BaseActivity<WelcomeViewModel, ActivityWelcomeBinding>() {
-    private val viewModel: WelcomeViewModel by viewModel()
+class WelcomeActivity :
+    BaseActivity<WelcomeViewModel, ActivityWelcomeBinding>(WelcomeViewModel::class) {
 
     override val bindingInflater: (LayoutInflater) -> ActivityWelcomeBinding
         get() = ActivityWelcomeBinding::inflate
-
-    override fun provideViewModel(): WelcomeViewModel = viewModel
 
     override fun setupView(savedInstanceState: Bundle?) {
         setupWelcomeScreenAppNameText()

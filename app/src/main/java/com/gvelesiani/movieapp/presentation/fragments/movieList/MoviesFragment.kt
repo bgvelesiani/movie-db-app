@@ -11,24 +11,25 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gvelesiani.movieapp.base.BaseFragment
+import com.gvelesiani.movieapp.common.extensions.gone
+import com.gvelesiani.movieapp.common.extensions.isNetworkAvailable
+import com.gvelesiani.movieapp.common.extensions.visible
+import com.gvelesiani.movieapp.data.ConnectionLiveData
 import com.gvelesiani.movieapp.databinding.FragmentMoviesBinding
-import com.gvelesiani.movieapp.domain.ConnectionLiveData
-import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
-import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
-import com.gvelesiani.movieapp.other.extensions.gone
-import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
+import com.gvelesiani.movieapp.presentation.adapters.MovieListAdapter
+import com.gvelesiani.movieapp.presentation.adapters.MovieLoadStateAdapter
 import com.mikepenz.itemanimators.AlphaInAnimator
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.load_state_footer_view_item.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
+class MoviesFragment :
+    BaseFragment<MoviesViewModel, FragmentMoviesBinding>(MoviesViewModel::class) {
 
     private lateinit var connectionLiveData: ConnectionLiveData
-    private val viewModel: MoviesViewModel by viewModel()
 
     private val recyclerViewAdapter = MovieListAdapter {
         val action =
@@ -40,6 +41,7 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
         get() = FragmentMoviesBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        requireActivity().bottomNavigationView.visible()
         connectionLiveData = ConnectionLiveData(requireContext())
         setupListeners()
         setupRecyclerViewWithAdapter()
@@ -109,7 +111,5 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
             recyclerViewAdapter.notifyDataSetChanged()
         }
     }
-
-    override fun provideViewModel(): MoviesViewModel = viewModel
 
 }

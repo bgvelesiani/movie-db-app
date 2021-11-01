@@ -13,20 +13,20 @@ import androidx.paging.PagingData
 import androidx.paging.filter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gvelesiani.movieapp.base.BaseFragment
+import com.gvelesiani.movieapp.common.extensions.gone
+import com.gvelesiani.movieapp.common.extensions.hideKeyboard
+import com.gvelesiani.movieapp.common.extensions.isNetworkAvailable
+import com.gvelesiani.movieapp.common.extensions.visible
 import com.gvelesiani.movieapp.databinding.FragmentSearchBinding
-import com.gvelesiani.movieapp.other.adapter.MovieListAdapter
-import com.gvelesiani.movieapp.other.adapter.MovieLoadStateAdapter
-import com.gvelesiani.movieapp.other.extensions.gone
-import com.gvelesiani.movieapp.other.extensions.hideKeyboard
-import com.gvelesiani.movieapp.other.extensions.isNetworkAvailable
-import com.gvelesiani.movieapp.other.extensions.visible
+import com.gvelesiani.movieapp.presentation.adapters.MovieListAdapter
+import com.gvelesiani.movieapp.presentation.adapters.MovieLoadStateAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
-    private val viewModel: SearchViewModel by viewModel()
+class SearchFragment :
+    BaseFragment<SearchViewModel, FragmentSearchBinding>(SearchViewModel::class) {
 
     private val recyclerViewAdapter = MovieListAdapter {
         val action =
@@ -34,12 +34,11 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         findNavController().navigate(action)
     }
 
-    override fun provideViewModel(): SearchViewModel = viewModel
-
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        requireActivity().bottomNavigationView.visible()
         setupRecyclerViewWithAdapter()
         setupSearchView()
         checkRecyclerViewItemCount()
@@ -59,9 +58,13 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun setupSearchView() {
         val isNetworkAvailable = requireContext().isNetworkAvailable
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        val searchView = binding.searchView
+        searchView.setOnClickListener {
+            searchView.onActionViewExpanded()
+        }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.searchView.hideKeyboard()
+                searchView.hideKeyboard()
 
                 if (query != null && isNetworkAvailable) {
                     binding.tvFindFavourite.gone()
@@ -96,8 +99,8 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
         })
 
-        binding.searchView.setOnCloseListener {
-            binding.searchView.clearFocus()
+        searchView.setOnCloseListener {
+            searchView.clearFocus()
             emptyRecyclerView(viewLifecycleOwner.lifecycleScope)
 
             if (!isNetworkAvailable) {

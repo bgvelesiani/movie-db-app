@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.diModules
+package com.gvelesiani.movieapp.modules.diModules
 
 //val sharedPreferencesModule = module {
 //    single { provideSharedPref(androidApplication()) }

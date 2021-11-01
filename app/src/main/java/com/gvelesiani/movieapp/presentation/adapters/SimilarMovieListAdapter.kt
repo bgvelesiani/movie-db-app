@@ -1,14 +1,14 @@
-package com.gvelesiani.movieapp.other.adapter
+package com.gvelesiani.movieapp.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.gvelesiani.movieapp.common.extensions.loadFromUrl
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
 import com.gvelesiani.movieapp.databinding.MovieItemBinding
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.other.extensions.loadFromUrl
 import com.makeramen.roundedimageview.RoundedImageView
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -20,11 +20,28 @@ class SimilarMovieListAdapter(private val clickListener: (Movie) -> Unit) :
 
     class MyItemViewHolder(binding: MovieItemBinding, clickAtPosition: (Int) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
-        val title: AppCompatTextView = binding.tvMovieName
-        val description: AppCompatTextView = binding.tvMovieDescription
-        val releaseDate: AppCompatTextView = binding.tvMovieReleaseDate
-        val poster: RoundedImageView = binding.ivMoviePoster
-        val rating: AppCompatTextView = binding.tvRating
+        private val title: AppCompatTextView = binding.tvMovieName
+        private val description: AppCompatTextView = binding.tvMovieDescription
+        private val releaseDate: AppCompatTextView = binding.tvMovieReleaseDate
+        private val poster: RoundedImageView = binding.ivMoviePoster
+        private val rating: AppCompatTextView = binding.tvRating
+
+        fun bindMovie(movie: Movie) {
+            title.text = movie.movieTitle
+            description.text = movie.movieDescription
+            releaseDate.text = movie.movieReleaseDate
+            poster.loadFromUrl("$BASE_IMAGE_URL${movie.imageUrl}")
+
+            //
+            val df = DecimalFormat("#.#")
+            df.roundingMode = RoundingMode.CEILING
+
+            rating.text = if (movie.movieRating.toString().length > 3) {
+                df.format(movie.movieRating).toString()
+            } else {
+                movie.movieRating.toString()
+            }
+        }
 
         init {
             binding.root.setOnClickListener {
@@ -34,8 +51,8 @@ class SimilarMovieListAdapter(private val clickListener: (Movie) -> Unit) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addData(movies: List<Movie>) {
-        movieList = movies
+    fun setData(list: List<Movie>) {
+        movieList = list
         notifyDataSetChanged()
     }
 
@@ -48,21 +65,7 @@ class SimilarMovieListAdapter(private val clickListener: (Movie) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: MyItemViewHolder, position: Int) {
-        val movie = movieList[position]
-        holder.title.text = movie.movieTitle
-        holder.description.text = movie.movieDescription
-        holder.releaseDate.text = movie.movieReleaseDate
-        holder.poster.loadFromUrl("$BASE_IMAGE_URL${movie.imageUrl}")
-
-        //
-        val df = DecimalFormat("#.#")
-        df.roundingMode = RoundingMode.CEILING
-
-        holder.rating.text = if (movie.movieRating.toString().length > 3) {
-            df.format(movie.movieRating).toString()
-        } else {
-            movie.movieRating.toString()
-        }
+        holder.bindMovie(movieList[position])
     }
 
     override fun getItemCount(): Int {

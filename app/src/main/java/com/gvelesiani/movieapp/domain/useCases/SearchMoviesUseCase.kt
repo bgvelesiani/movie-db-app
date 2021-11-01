@@ -1,13 +1,12 @@
 package com.gvelesiani.movieapp.domain.useCases
 
 import com.gvelesiani.movieapp.base.BaseUseCase
-import com.gvelesiani.movieapp.domain.models.MovieList
-import com.gvelesiani.movieapp.domain.repository.Repository
-import retrofit2.Response
+import com.gvelesiani.movieapp.data.repository.Repository
+import com.gvelesiani.movieapp.domain.models.Movie
 
 class SearchMoviesUseCase(private val repository: Repository) :
-    BaseUseCase<Pair<Int, String>, Response<MovieList>>() {
-    override suspend fun run(params: Pair<Int, String>): Response<MovieList> {
+    BaseUseCase<Pair<Int, String>, List<Movie>>() {
+    override suspend fun run(params: Pair<Int, String>): List<Movie> {
         return repository.searchMovies(params.first, params.second)
     }
 }

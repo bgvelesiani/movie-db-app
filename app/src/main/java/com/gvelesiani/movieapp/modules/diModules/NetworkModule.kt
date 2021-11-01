@@ -1,11 +1,12 @@
-package com.gvelesiani.movieapp.diModules
+package com.gvelesiani.movieapp.modules.diModules
 
 
 import com.gvelesiani.movieapp.constants.BASE_URL
-import com.gvelesiani.movieapp.domain.api.NetworkApi
-import com.gvelesiani.movieapp.domain.interceptors.AuthInterceptor
-import com.gvelesiani.movieapp.domain.repository.Repository
-import com.gvelesiani.movieapp.domain.repository.RepositoryImpl
+import com.gvelesiani.movieapp.data.api.NetworkApi
+import com.gvelesiani.movieapp.data.interceptors.AuthInterceptor
+import com.gvelesiani.movieapp.data.mappers.DomainModelMapperImpl
+import com.gvelesiani.movieapp.data.repository.Repository
+import com.gvelesiani.movieapp.data.repository.RepositoryImpl
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -16,7 +17,8 @@ val networkModule = module {
     factory { provideOkHttpClient(get()) }
     factory { provideNetworkApi(get()) }
     single { provideRetrofit(get()) }
-    single { createRepository(get()) }
+    single { provideDomainMapper() }
+    single { createRepository(get(), get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -30,6 +32,10 @@ fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
 
 fun provideNetworkApi(retrofit: Retrofit): NetworkApi = retrofit.create(NetworkApi::class.java)
 
-fun createRepository(apiService: NetworkApi): Repository {
-    return RepositoryImpl(apiService)
+fun createRepository(apiService: NetworkApi, domainMapper: DomainModelMapperImpl): Repository {
+    return RepositoryImpl(apiService, domainMapper)
+}
+
+fun provideDomainMapper(): DomainModelMapperImpl {
+    return DomainModelMapperImpl()
 }

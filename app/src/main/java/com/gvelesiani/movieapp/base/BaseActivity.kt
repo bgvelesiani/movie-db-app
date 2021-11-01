@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.reflect.KClass
 
-abstract class BaseActivity<VM : BaseViewModel, B : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) :
+    AppCompatActivity() {
 
     protected lateinit var binding: B
 
-    private lateinit var viewModel: VM
+    val viewModel: VM by viewModel(clazz = klass)
 
     abstract val bindingInflater: (LayoutInflater) -> B
 
@@ -18,15 +21,8 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewBinding> : AppCompatActi
         binding = bindingInflater.invoke(layoutInflater).apply {
             setContentView(root)
         }
-        viewModel = provideViewModel()
         setupView(savedInstanceState)
     }
-
-    fun getViewModel(): VM {
-        return viewModel
-    }
-
-    abstract fun provideViewModel(): VM
 
     abstract fun setupView(savedInstanceState: Bundle?)
 }

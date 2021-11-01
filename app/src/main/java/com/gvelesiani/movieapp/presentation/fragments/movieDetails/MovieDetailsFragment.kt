@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gvelesiani.movieapp.base.BaseFragment
+import com.gvelesiani.movieapp.common.extensions.gone
+import com.gvelesiani.movieapp.common.extensions.loadFromUrl
 import com.gvelesiani.movieapp.constants.BASE_IMAGE_URL
 import com.gvelesiani.movieapp.databinding.FragmentMovieDetailsBinding
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.other.adapter.SimilarMovieListAdapter
-import com.gvelesiani.movieapp.other.extensions.loadFromUrl
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.gvelesiani.movieapp.presentation.adapters.SimilarMovieListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDetailsBinding>() {
-
-    private val viewModel: MovieDetailsViewModel by viewModel()
+class MovieDetailsFragment :
+    BaseFragment<MovieDetailsViewModel, FragmentMovieDetailsBinding>(MovieDetailsViewModel::class) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieDetailsBinding
         get() = FragmentMovieDetailsBinding::inflate
@@ -28,6 +28,7 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
+        requireActivity().bottomNavigationView.gone()
         val movie = MovieDetailsFragmentArgs.fromBundle(requireArguments()).movie
         viewModel.getSimilarMovies(movie.movieId)
         setupMovieDetails(movie)
@@ -53,7 +54,7 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpObservers() {
         viewModel.similarMovies.observe(this, { list ->
-            recyclerViewAdapter.addData(list.movieResults)
+            recyclerViewAdapter.setData(list)
             recyclerViewAdapter.notifyDataSetChanged()
         })
     }
@@ -66,7 +67,5 @@ class MovieDetailsFragment : BaseFragment<MovieDetailsViewModel, FragmentMovieDe
             tvMovieDescription.text = movie.movieDescription
         }
     }
-
-    override fun provideViewModel(): MovieDetailsViewModel = viewModel
 
 }

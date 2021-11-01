@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.other.adapter
+package com.gvelesiani.movieapp.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

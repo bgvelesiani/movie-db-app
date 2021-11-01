@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.domain.models
+package com.gvelesiani.movieapp.data.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -8,7 +8,7 @@ data class MovieList(
     @SerializedName("page")
     var page: Int,
     @SerializedName("results")
-    var movieResults: List<Movie>,
+    var movieDtoResults: List<MovieDto>,
     @SerializedName("total_pages")
     var totalPages: Int,
     @SerializedName("total_results")
@@ -16,7 +16,7 @@ data class MovieList(
 )
 
 @Parcelize
-class Movie(
+class MovieDto(
     @SerializedName("adult")
     val isAdultRated: Boolean,
     @SerializedName("poster_path")

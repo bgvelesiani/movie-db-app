@@ -1,28 +1,24 @@
-package com.gvelesiani.movieapp.domain.pagingDataSource
+package com.gvelesiani.movieapp.data.pagingDataSource
 
+import android.util.Log.d
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.gvelesiani.movieapp.common.extensions.notNull
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.domain.useCases.SearchMoviesUseCase
-import com.gvelesiani.movieapp.other.extensions.notNull
-import kotlinx.coroutines.delay
+import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
 
-class SearchMoviesDataSource(
-    private val searchMoviesUseCase: SearchMoviesUseCase,
-    private val query: String
+class PopularMoviesDataSource(
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
-        delay(1500)
         return try {
             val page = params.key ?: 1
-            val response = searchMoviesUseCase.run(
-                Pair(page, query)
-            )
+            val response = getPopularMoviesUseCase.run(page)
             var movies: List<Movie> = listOf()
 
-            response.body().notNull {
-                movies = it.movieResults
+            response.notNull {
+                movies = it
             }
 
             LoadResult.Page(
@@ -31,6 +27,7 @@ class SearchMoviesDataSource(
                 nextKey = page + 1
             )
         } catch (e: Exception) {
+            d("onError", e.message.toString())
             LoadResult.Error(e)
         }
     }

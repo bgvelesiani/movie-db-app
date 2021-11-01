@@ -6,8 +6,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.gvelesiani.movieapp.base.BaseViewModel
+import com.gvelesiani.movieapp.data.pagingDataSource.SearchMoviesDataSource
 import com.gvelesiani.movieapp.domain.models.Movie
-import com.gvelesiani.movieapp.domain.pagingDataSource.SearchMoviesDataSource
 import com.gvelesiani.movieapp.domain.useCases.SearchMoviesUseCase
 import kotlinx.coroutines.flow.Flow
 

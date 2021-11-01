@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.other.utils
+package com.gvelesiani.movieapp.modules
 
 import android.content.Context
 import com.bumptech.glide.GlideBuilder

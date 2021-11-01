@@ -1,4 +1,4 @@
-package com.gvelesiani.movieapp.diModules
+package com.gvelesiani.movieapp.modules.diModules
 
 import com.gvelesiani.movieapp.domain.useCases.GetPopularMoviesUseCase
 import com.gvelesiani.movieapp.domain.useCases.GetSimilarMoviesUseCase

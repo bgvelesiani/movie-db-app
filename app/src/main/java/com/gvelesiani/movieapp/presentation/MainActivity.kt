@@ -2,7 +2,6 @@ package com.gvelesiani.movieapp.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,14 +11,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gvelesiani.movieapp.R
 import com.gvelesiani.movieapp.base.BaseActivity
 import com.gvelesiani.movieapp.databinding.ActivityMainBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(MainViewModel::class) {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val viewModel: MainViewModel by viewModel()
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
         get() = ActivityMainBinding::inflate
@@ -42,6 +39,4 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
-
-    override fun provideViewModel(): MainViewModel = viewModel
 }
