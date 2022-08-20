@@ -2,6 +2,7 @@ package com.gvelesiani.movieapp.domain.api
 
 import com.gvelesiani.movieapp.constants.ApiEndpoints
 import com.gvelesiani.movieapp.domain.models.MovieList
+import com.gvelesiani.movieapp.domain.models.MovieModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,4 +20,7 @@ interface NetworkApi {
 
     @GET(ApiEndpoints.SIMILAR_MOVIES)
     suspend fun getSimilarMovies(@Path("movie_id") movieId: Int): Response<MovieList>
+
+    @GET(ApiEndpoints.MOVIE_VIDEOS)
+    suspend fun getMovieTrailer(@Path("movie_id") movieId: Int): Response<MovieModel>
 }

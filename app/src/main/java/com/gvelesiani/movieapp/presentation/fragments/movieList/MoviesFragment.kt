@@ -72,7 +72,7 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
     }
 
     private fun checkNetworkAndSetupObservers() {
-        connectionLiveData.observe(this, { isConnected ->
+        connectionLiveData.observe(this) { isConnected ->
             if (isConnected) {
                 binding.tvNoInternet.gone()
                 if (recyclerViewAdapter.itemCount > 0) {
@@ -85,7 +85,7 @@ class MoviesFragment : BaseFragment<MoviesViewModel, FragmentMoviesBinding>() {
                     binding.tvNoInternet.gone()
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

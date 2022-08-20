@@ -78,6 +78,15 @@
             app:layout_constraintStart_toStartOf="@+id/glStart"
             app:layout_constraintTop_toBottomOf="@id/tvSummary" />
 
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/moviePlayer"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_width="@dimen/dimen_0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/glEnd"
+            app:layout_constraintStart_toStartOf="@+id/glStart"
+            app:layout_constraintTop_toBottomOf="@id/tvMovieDescription" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSuggestedMovies"
             android:layout_width="wrap_content"
@@ -88,7 +97,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_20sp"
             app:layout_constraintStart_toStartOf="@+id/glStart"
-            app:layout_constraintTop_toBottomOf="@+id/tvMovieDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/moviePlayer" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSimilarMovies"

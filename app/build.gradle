@@ -5,6 +5,7 @@ plugins {
     id "androidx.navigation.safeargs"
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
 }
 
 android {
@@ -73,5 +74,7 @@ dependencies {
     implementation "com.mikepenz:itemanimators:$recycler_view_animator_version"
 
     implementation "com.makeramen:roundedimageview:$makeramen_rounded_image_view_version"
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 
 }

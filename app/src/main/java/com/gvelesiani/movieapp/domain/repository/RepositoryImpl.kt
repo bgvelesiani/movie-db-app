@@ -2,6 +2,7 @@ package com.gvelesiani.movieapp.domain.repository
 
 import com.gvelesiani.movieapp.domain.api.NetworkApi
 import com.gvelesiani.movieapp.domain.models.MovieList
+import com.gvelesiani.movieapp.domain.models.MovieModel
 import retrofit2.Response
 
 class RepositoryImpl(
@@ -17,5 +18,9 @@ class RepositoryImpl(
 
     override suspend fun getSimilarMovies(movieId: Int): Response<MovieList> {
         return networkApi.getSimilarMovies(movieId)
+    }
+
+    override suspend fun getMovieTrailer(movieId: Int): Response<MovieModel> {
+        return networkApi.getMovieTrailer(movieId)
     }
 }
